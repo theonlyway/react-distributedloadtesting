@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+    pre_build:
+        commands:
+            - echo $REPOSITORY
+            - echo $REPOSITORY_URI
+            - echo $IMAGE_NAME
+            - echo $CONSOLE_BUCKET_NAME
+            - $(aws ecr get-login --region $AWS_REGION --no-include-email)
+            - cp -r $CODEBUILD_SRC_DIR_scenarios_output ./scenarios
+            - aws s3 sync s3://$CONSOLE_BUCKET_NAME/public/scenarios ./scenarios
+    build:
+        commands:
+            - docker build -t $REPOSITORY:latest .
+            - docker tag $REPOSITORY:latest $REPOSITORY_URI:$IMAGE_NAME
+    post_build:
+        commands:
+            - docker push $REPOSITORY_URI:$IMAGE_NAME

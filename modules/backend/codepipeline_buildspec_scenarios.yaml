@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+            nodejs: latest
+    pre_build:
+        commands:
+            - echo $CONSOLE_BUCKET_NAME
+    build:
+        commands:
+            - aws s3 sync . s3://$CONSOLE_BUCKET_NAME/public/scenarios

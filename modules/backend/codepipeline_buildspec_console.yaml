@@ -1,0 +1,27 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+            nodejs: latest
+    pre_build:
+        commands:
+            - echo $LOAD_TESTING_NAME
+            - echo $CONSOLE_BUCKET_NAME
+            - echo $ARTIFACT_BUCKET_NAME
+            - echo $AWS_CONGITO_IDENTITY_POOL_ID
+            - echo $AWS_USER_POOLS_ID
+            - echo $AWS_USER_POOLS_WEB_CLIENT_ID
+            - echo $API_ENDPOINT
+            - echo $LOCUST_ALB_DNS
+            - echo $CONSOLE_CLOUDFRONT_DIST_ID
+    build:
+        commands:
+            - chmod +x aws_config.sh
+            - ./aws_config.sh
+            - cat assets/aws_config.js
+            - rm aws_config.sh
+            - aws s3 sync . s3://$CONSOLE_BUCKET_NAME --delete --exclude 'public/*' --exclude index.html
+            - aws s3 sync . s3://$CONSOLE_BUCKET_NAME --cache-control 'no-cache' --exclude '*' --include index.html
+    post_build:
+        commands:
+            - aws cloudfront create-invalidation --distribution-id $CONSOLE_CLOUDFRONT_DIST_ID --paths "/*"

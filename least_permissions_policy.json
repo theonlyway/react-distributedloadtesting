@@ -1,0 +1,171 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "KMS",
+            "Effect": "Allow",
+            "Action": [
+                "kms:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Cloudfront",
+            "Effect": "Allow",
+            "Action": [
+                "cloudfront:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "WAFRegional",
+            "Effect": "Allow",
+            "Action": [
+                "waf-regional:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "WAF",
+            "Effect": "Allow",
+            "Action": [
+                "waf:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Logs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ECR",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:DescribeRepositories",
+                "ecr:CreateRepository",
+                "ecr:DeleteRepository",
+                "ecr:List*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ECS",
+            "Effect": "Allow",
+            "Action": [
+                "ecs:CreateCluster",
+                "ecs:DescribeClusters",
+                "ecs:DeleteCluster"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:CreateTable",
+                "dynamodb:TagResource",
+                "dynamodb:Describe*",
+                "dynamodb:List*",
+                "dynamodb:DeleteTable"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "IAM",
+            "Effect": "Allow",
+            "Action": [
+                "iam:Get*",
+                "iam:List*",
+                "iam:CreateRole",
+                "iam:DeleteRole*",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:PassRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "EC2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "ec2:*Vpc*",
+                "ec2:*Subnet*",
+                "ec2:*InternetGateway*",
+                "ec2:*NatGateway*",
+                "ec2:*Route*",
+                "ec2:*SecurityGroup*",
+                "ec2:ReleaseAddress",
+                "ec2:AllocateAddress"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SQS",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:DeleteQueue",
+                "sqs:Get*",
+                "sqs:List*",
+                "sqs:SetQueueAttributes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Codebuild",
+            "Effect": "Allow",
+            "Action": [
+                "codebuild:*",
+                "codepipeline:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Cognito",
+            "Effect": "Allow",
+            "Action": [
+                "cognito-idp:*",
+                "cognito-identity:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "APIGateway",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Lambda",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ALB",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

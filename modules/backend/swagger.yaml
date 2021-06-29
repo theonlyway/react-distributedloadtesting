@@ -1,0 +1,384 @@
+openapi: 3.0.2
+info:
+  title: '${gateway_name}'
+  description: '${description}'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: anthonywaye@gmail.com
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+tags:
+  - name: engines
+    description: Everything to do with engines
+  - name: CORS
+    description: Options to enable CORS support
+  - name: pricing
+    description: Pricing information
+paths:
+  /engines:
+    get:
+      tags:
+        - engines
+      summary: Return a list of all created engines
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    options:
+      summary: CORS support
+      description: Enable CORS by returning correct headers
+      tags:
+        - CORS
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{}\n"
+        requestTemplates:
+          application/json: "{\n  \"statusCode\" : 200\n}\n"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /engine/launch/locust:
+    post:
+      tags:
+        - engines
+      summary: Launch an engine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocustPayload"
+        required: true
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    options:
+      summary: CORS support
+      description: Enable CORS by returning correct headers
+      tags:
+        - CORS
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{}\n"
+        requestTemplates:
+          application/json: "{\n  \"statusCode\" : 200\n}\n"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /engine/{engine}:
+    get:
+      tags:
+        - engines
+      summary: Returns an engine
+      parameters:
+        - name: engine
+          in: path
+          description: Name of the engine to return
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    delete:
+      tags:
+        - engines
+      summary: Delete an engine
+      parameters:
+        - name: engine
+          in: path
+          description: Name of the engine to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    options:
+      summary: CORS support
+      description: Enable CORS by returning correct headers
+      tags:
+        - CORS
+      parameters:
+        - name: engine
+          in: path
+          description: Name of the engine to launch
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{}\n"
+        requestTemplates:
+          application/json: "{\n  \"statusCode\" : 200\n}\n"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /engine/{engine}/tasks:
+    get:
+      tags:
+        - engines
+      summary: Returns fargate tasks for a specific engine
+      parameters:
+        - name: engine
+          in: path
+          description: Name of the engine to return
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    options:
+      summary: CORS support
+      description: Enable CORS by returning correct headers
+      tags:
+        - CORS
+      parameters:
+        - name: engine
+          in: path
+          description: Name of the engine to launch
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{}\n"
+        requestTemplates:
+          application/json: "{\n  \"statusCode\" : 200\n}\n"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /pricing/fargate:
+    get:
+      tags:
+        - pricing
+      summary: Returns pricing for fargate tasks
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - sigv4: []
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        uri: '${engines_lambda_arn}'
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws_proxy"
+    options:
+      summary: CORS support
+      description: Enable CORS by returning correct headers
+      tags:
+        - CORS
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content: {}
+      x-amazon-apigateway-request-validator: "full"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'*'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            responseTemplates:
+              application/json: "{}\n"
+        requestTemplates:
+          application/json: "{\n  \"statusCode\" : 200\n}\n"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+components:
+  schemas:
+    LocustPayload:
+      title: "Locust payload"
+      type: "object"
+      properties:
+        numMasterNodes:
+          type: "integer"
+        masterNodeVcpu:
+          type: "integer"
+        masterNodeMemory:
+          type: "integer"
+        numSlaveNodes:
+          type: "integer"
+        slaveNodeVcpu:
+          type: "integer"
+        slaveNodeMemory:
+          type: "integer"
+        locustFileName:
+          type: "string"
+        customLocustFile:
+          type: "boolean"
+    Empty:
+      title: "Empty Schema"
+      type: "object"
+  securitySchemes:
+    sigv4:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authtype: "awsSigv4"
+x-amazon-apigateway-request-validators:
+  full:
+    validateRequestParameters: true
+    validateRequestBody: true
