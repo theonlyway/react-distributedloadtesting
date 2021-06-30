@@ -88,7 +88,7 @@ Once terraform has spun up the resources the email account which was defined in 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aws_cli_profile_name"></a> [aws\_cli\_profile\_name](#input\_aws\_cli\_profile\_name) | AWS CLI profile to use for credentials if not using the default | `string` | `"aws-237"` | no |
+| <a name="input_aws_cli_profile_name"></a> [aws\_cli\_profile\_name](#input\_aws\_cli\_profile\_name) | AWS CLI profile to use for credentials if not using the default | `string` | `""` | no |
 | <a name="input_geo_loc_whitelist"></a> [geo\_loc\_whitelist](#input\_geo\_loc\_whitelist) | List of countries to whitelist | `list(string)` | <pre>[<br>  "AU"<br>]</pre> | no |
 | <a name="input_initial_admin_account_name"></a> [initial\_admin\_account\_name](#input\_initial\_admin\_account\_name) | Default admin username for initial login to Cognito | `string` | `"Admin"` | no |
 | <a name="input_initial_admin_email_address"></a> [initial\_admin\_email\_address](#input\_initial\_admin\_email\_address) | Default email address for initial login to Cognito. Initial login details will be sent here | `string` | n/a | yes |

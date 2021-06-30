@@ -58,5 +58,5 @@ variable "geo_loc_whitelist" {
 variable "aws_cli_profile_name" {
   type        = string
   description = "AWS CLI profile to use for credentials if not using the default"
-  default     = "aws-237"
+  default     = ""
 }
