@@ -61,30 +61,45 @@ Once terraform has spun up the resources the email account which was defined in 
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.4 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_backend"></a> [backend](#module\_backend) | ./modules/backend | n/a |
+| <a name="module_frontend"></a> [frontend](#module\_frontend) | ./modules/frontend | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
+| [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| aws\_cli\_profile\_name | AWS CLI profile to use for credentials if not using the default | `string` | `""` | no |
-| geo\_loc\_whitelist | List of countries to whitelist | `list(string)` | <pre>[<br>  "AU"<br>]</pre> | no |
-| initial\_admin\_account\_name | Default admin username for initial login to Cognito | `string` | `"Admin"` | no |
-| initial\_admin\_email\_address | Default email address for initial login to Cognito. Initial login details will be sent here | `string` | n/a | yes |
-| name | Name of the solution | `string` | `"DistributedLoadTesting"` | no |
-| public\_ips\_for\_slaves | Flag for weather or not to assign public IP's to slaves. This will give that each slave is coming from a different IP address as opposed to routing traffic out of the 3 known NAT gateways | `bool` | `false` | no |
-| vpc\_cidr | CIDR for the VPC | `string` | `"192.168.0.0/16"` | no |
-| vpc\_private\_subnet\_cidrs | List of CIDRs to be used for private subnets | `list` | <pre>[<br>  "192.168.4.0/24",<br>  "192.168.5.0/24",<br>  "192.168.6.0/24"<br>]</pre> | no |
-| vpc\_public\_subnet\_cidrs | List of CIDRs to be used for public subnets | `list` | <pre>[<br>  "192.168.1.0/24",<br>  "192.168.2.0/24",<br>  "192.168.3.0/24"<br>]</pre> | no |
+| <a name="input_aws_cli_profile_name"></a> [aws\_cli\_profile\_name](#input\_aws\_cli\_profile\_name) | AWS CLI profile to use for credentials if not using the default | `string` | `"aws-237"` | no |
+| <a name="input_geo_loc_whitelist"></a> [geo\_loc\_whitelist](#input\_geo\_loc\_whitelist) | List of countries to whitelist | `list(string)` | <pre>[<br>  "AU"<br>]</pre> | no |
+| <a name="input_initial_admin_account_name"></a> [initial\_admin\_account\_name](#input\_initial\_admin\_account\_name) | Default admin username for initial login to Cognito | `string` | `"Admin"` | no |
+| <a name="input_initial_admin_email_address"></a> [initial\_admin\_email\_address](#input\_initial\_admin\_email\_address) | Default email address for initial login to Cognito. Initial login details will be sent here | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name of the solution | `string` | `"DistributedLoadTesting"` | no |
+| <a name="input_public_ips_for_slaves"></a> [public\_ips\_for\_slaves](#input\_public\_ips\_for\_slaves) | Flag for weather or not to assign public IP's to slaves. This will give that each slave is coming from a different IP address as opposed to routing traffic out of the 3 known NAT gateways | `bool` | `false` | no |
+| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | CIDR for the VPC | `string` | `"192.168.0.0/16"` | no |
+| <a name="input_vpc_private_subnet_cidrs"></a> [vpc\_private\_subnet\_cidrs](#input\_vpc\_private\_subnet\_cidrs) | List of CIDRs to be used for private subnets | `list` | <pre>[<br>  "192.168.4.0/24",<br>  "192.168.5.0/24",<br>  "192.168.6.0/24"<br>]</pre> | no |
+| <a name="input_vpc_public_subnet_cidrs"></a> [vpc\_public\_subnet\_cidrs](#input\_vpc\_public\_subnet\_cidrs) | List of CIDRs to be used for public subnets | `list` | <pre>[<br>  "192.168.1.0/24",<br>  "192.168.2.0/24",<br>  "192.168.3.0/24"<br>]</pre> | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| nat\_ip\_addresses | List of public IP addresses assigned to the NAT gateways |
+| <a name="output_nat_ip_addresses"></a> [nat\_ip\_addresses](#output\_nat\_ip\_addresses) | List of public IP addresses assigned to the NAT gateways |
