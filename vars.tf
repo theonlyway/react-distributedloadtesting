@@ -35,7 +35,7 @@ variable "vpc_private_subnet_cidrs" {
 }
 
 variable "public_ips_for_slaves" {
-  description = "Flag for weather or not to assign public IP's to slaves. This will give that each slave is coming from a different IP address as opposed to routing traffic out of the 3 known NAT gateways"
+  description = "Flag for weather or not to assign public IP's to slaves. This will give each slave a public IP address to make it look like it's coming from a different source instead of routing traffic out of one of the 3 NAT gateways"
   type        = bool
   default     = false
 }
